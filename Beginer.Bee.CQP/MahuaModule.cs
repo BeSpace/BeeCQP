@@ -1,4 +1,7 @@
 ﻿using Autofac;
+using Newbe.Mahua;
+using Newbe.Mahua.MahuaEvents;
+using Beginer.Bee.CQP.MahuaEvents;
 
 namespace Beginer.Bee.CQP
 {
@@ -45,6 +48,8 @@ namespace Beginer.Bee.CQP
             {
                 base.Load(builder);
                 // 将需要监听的事件注册，若缺少此注册，则不会调用相关的实现类
+                builder.RegisterType<PrivateMessageFromFriendReceivedMahuaEvent>()
+                   .As<IPrivateMessageFromFriendReceivedMahuaEvent>();
             }
         }
     }
