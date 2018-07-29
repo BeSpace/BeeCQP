@@ -29,10 +29,10 @@ namespace Beginer.Bee.CQP.MahuaEvents
                 .Shake()
                 .Done();
             
-            var text = (string)HttpUtil.getRequest("http://192.168.1.222:8000/index.php?m=api&f=getSessionID&t=json", "utf-8","utf-8");
+            var text = (string)HttpUtil.getRequest("https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=webClient&oq=%25E9%2585%25B7Q&rsv_pq=fc6735c100016728&rsv_t=f98e4FBjAbOPAuiNKru1GtR2JHdAl0PJ1PT8D%2BKxtwA3VR8EP24z1XXo3OU&rqlang=cn&rsv_enter=1&inputT=4494&rsv_sug3=15&rsv_sug1=14&rsv_sug7=100&rsv_n=2&rsv_sug2=0&rsv_sug4=5179", "utf-8","utf-8");
             // 嘤嘤嘤，换行，重复消息
             _mahuaApi.SendPrivateMessage(context.FromQq)
-                .Text("嘤嘤嘤："+ text)
+                .Text("我是机器人：\r\n"+ text)
                 .Newline()
                 .Text(context.Message)
                 .Done();
@@ -45,9 +45,9 @@ namespace Beginer.Bee.CQP.MahuaEvents
                 {
                     var api = robotSession.MahuaApi;
                     api.SendPrivateMessage(context.FromQq, "芝麻");
-                    var tex2t = (string)HttpUtil.getRequest("http://192.168.1.222:8000/index.php?m=api&f=getSessionID&t=json", "utf-8", "utf-8");
+                    //var tex2t = (string)HttpUtil.getRequest("http://demo.zentao.net/api-getsessionid.json", "utf-8", "utf-8");
                     Task.Delay(5000).Wait();
-                    api.SendPrivateMessage(context.FromQq, tex2t+"开门");
+                    //api.SendPrivateMessage(context.FromQq, tex2t+"开门");
                     //api.SendPrivateMessage(context.FromQq, text);
                 }
             });

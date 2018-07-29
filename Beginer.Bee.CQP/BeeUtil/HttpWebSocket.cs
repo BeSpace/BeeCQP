@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RestSharp;
+using RestSharp.Authenticators;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,6 +22,7 @@ namespace Beginer.Bee.CQP.BeeUtil
         /// <returns>响应的结果</returns>
         public static String postRequest(String url, IDictionary<String, String> dic, String requestEncode, String responseEncode)
         {
+            return "sdasd";
             StringBuilder strb = new StringBuilder();
             foreach (string key in dic.Keys)
             {
@@ -71,39 +74,28 @@ namespace Beginer.Bee.CQP.BeeUtil
         /// <returns>响应的结果</returns>
         public static String getRequest(String requestUrl, String requestEncode, String responseEncode)
         {
-            String url = requestUrl.Substring(0, requestUrl.LastIndexOf('?'));
-            String queryString = requestUrl.Substring(requestUrl.LastIndexOf('?') + 1); ;
-            byte[] data = Encoding.GetEncoding(requestEncode.ToUpper()).GetBytes(queryString); ;
-            WebClient webClient = new WebClient();
-            try
-            {
-                //得到返回字符流
-                byte[] responseData = webClient.UploadData(url, "GET", data);
-                //解码
-                String responseString = Encoding.GetEncoding(responseEncode.ToUpper()).GetString(responseData);
-                return responseString;
-            }
-            catch (WebException ex)
-            {
-                Stream stream = ex.Response.GetResponseStream();
-                string m = ex.Response.Headers.ToString();
-                byte[] buf = new byte[256];
-                stream.Read(buf, 0, 256);
-                stream.Close();
-                int count = 0;
-                foreach (Byte b in buf)
-                {
-                    if (b > 0)
-                    {
-                        count++;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                return ex.Message + "\r\n\r\n" + Encoding.GetEncoding(responseEncode.ToUpper()).GetString(buf, 0, count);
-            }
+
+           
+
+            var client = new RestClient();
+            client.BaseUrl = new Uri("requestUrl");
+           
+
+            var request = new RestRequest();
+
+            IRestResponse response = client.Execute(request);
+
+
+
+
+            //实例化
+           // WebClient client = new WebClient();
+            //上传并接收数据
+            //Byte[] responseData = client.DownloadData(requestUrl);
+            //接收返回的json的流数据，并转码
+            //string srcString = Encoding.GetEncoding(responseEncode.ToUpper()).GetString(responseData);
+
+            return response.ToString();
         }
     }
 }
